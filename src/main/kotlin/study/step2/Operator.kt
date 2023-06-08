@@ -1,24 +1,25 @@
 package study.step2
 
-enum class Operator {
+enum class Operator(
+    val expression: String
+) {
 
-    PLUS {
-
+    PLUS("+") {
         override fun apply(left: Operand, right: Operand): Int {
             return left.value + right.value
         }
     },
-    MINUS {
+    MINUS("-") {
         override fun apply(left: Operand, right: Operand): Int {
             return left.value - right.value
         }
     },
-    MULTIPLY {
+    MULTIPLY("*") {
         override fun apply(left: Operand, right: Operand): Int {
             return left.value * right.value
         }
     },
-    DIVIDE {
+    DIVIDE("/") {
         override fun apply(left: Operand, right: Operand): Int {
             if (right.value == 0) {
                 throw IllegalArgumentException()
@@ -27,18 +28,10 @@ enum class Operator {
         }
     };
 
+    abstract fun apply(left: Operand, right: Operand): Int
     companion object {
         fun of(value: String): Operator {
-            return when (value) {
-                "+" -> PLUS
-                "-" -> MINUS
-                "*" -> MULTIPLY
-                "/" -> DIVIDE
-                else -> throw IllegalArgumentException()
-            }
+            return values().first { it.expression == value }
         }
     }
-
-    abstract fun apply(left: Operand, right: Operand): Int
-
 }

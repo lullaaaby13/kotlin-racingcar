@@ -5,6 +5,14 @@ class Operation private constructor(
     val operators: MutableList<Operator>,
 ) {
 
+    fun pollOperand(): Operand {
+        return operands.removeFirst()
+    }
+
+    fun pollOperator(): Operator {
+        return operators.removeFirst()
+    }
+
     companion object {
         fun parse(expression: String? = null): Operation {
             if (expression.isNullOrBlank()) {
@@ -29,17 +37,5 @@ class Operation private constructor(
 
             return Operation(operands, operators)
         }
-    }
-
-    fun hasNextOperand(): Boolean {
-        return operands.isNotEmpty()
-    }
-
-    fun pollOperand(): Operand? {
-        return operands.removeFirstOrNull()
-    }
-
-    fun pollOperator(): Operator? {
-        return operators.removeFirstOrNull()
     }
 }
