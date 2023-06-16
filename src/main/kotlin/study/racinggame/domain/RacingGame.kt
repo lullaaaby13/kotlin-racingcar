@@ -11,7 +11,8 @@ class RacingGame(
                 val positionOfCars = cars.map { it.move() }
                 RacingGameStage(stage, positionOfCars)
             }
-        val winners = Winners(racingGameStages)
+        val lastStage = racingGameStages.last()
+        val winners = Winners.of(lastStage)
         return RacingGameResult(racingGameStages, winners)
     }
 }

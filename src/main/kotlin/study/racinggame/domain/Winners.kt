@@ -1,14 +1,15 @@
 package study.racinggame.domain
 
-class Winners(racingGameStages: List<RacingGameStage>) {
-    private val winnersOfGame: List<Participant>
-    init {
-        val lastStage = racingGameStages.last()
-        this.winnersOfGame = lastStage.frontRunners()
-            .map { it.participant }
-    }
+class Winners private constructor(private val winnersOfGame: List<Participant>) {
 
     fun names(): List<String> {
         return winnersOfGame.map { it.name }
+    }
+
+    companion object {
+        fun of(racingGameStage: RacingGameStage): Winners {
+            val frontRunners = racingGameStage.frontRunners().map { it.participant }
+            return Winners(frontRunners)
+        }
     }
 }
